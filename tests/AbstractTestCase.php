@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaimea\CommonMark\Steps\Tests;
+namespace Zaimea\CommonMark\Timeline\Tests;
 
 use PHPUnit\Framework\TestCase;
 

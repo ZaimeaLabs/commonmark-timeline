@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaimea\CommonMark\Timeline;
+namespace Zaimea\CommonMark\Timeline\Parser;
 
 use League\CommonMark\Parser\Block\BlockStart;
 use League\CommonMark\Parser\Block\BlockStartParserInterface;
@@ -15,12 +15,13 @@ class TimelineStartParser implements BlockStartParserInterface
             return BlockStart::none();
         }
 
-        // Allow forms: "::: timeline", ":::timeline", "::: timeline<BR/>" etc.
-        $fence = $cursor->match('/^:::\s*timeline(?:\s*<br\s*\/?>)?/i');
+        // Detect :::timeline
+        $fence = $cursor->match('/^:::\s*timeline/i');
         if ($fence === null) {
             return BlockStart::none();
         }
 
-        return BlockStart::of(new TimelineParser())->at($cursor);
+        // Return a new parser for this block
+        return BlockStart::of(new TimelineBlockParser())->at($cursor);
     }
 }
