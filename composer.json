@@ -1,0 +1,53 @@
+{
+    "name": "zaimea/commonmark-timeline",
+    "license": "MIT",
+    "homepage": "https://zaimea.com",
+    "description": "CommonMark extension adds Timeline tag for the league/commonmark PHP Markdown parsing engine, based on the CommonMark spec.",
+    "keywords": [
+        "laravel",
+        "commonmark",
+        "league",
+        "timeline",
+        "extension",
+        "zaimealabs",
+        "zaimea"
+    ],
+    "authors": [
+        {
+            "name": "Custură Laurențiu",
+            "email": "mail@custura.de"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "league/commonmark": "^2.7"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0",
+        "phpstan/phpstan": "^1.12.23",
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zaimea\\CommonMark\\Timeline\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zaimea\\CommonMark\\Timeline\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
