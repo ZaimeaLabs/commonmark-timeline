@@ -9,35 +9,26 @@ use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
 use League\CommonMark\Parser\Block\BlockContinueParserInterface;
 use League\CommonMark\Parser\Cursor;
-use Zaimea\CommonMark\Timeline\Nodes\TimelineBlock;
+use Zaimea\CommonMark\Timeline\Node\Timeline;
+use Zaimea\CommonMark\Timeline\Node\TimelineList;
+use Zaimea\CommonMark\Timeline\Node\TimelineTerm;
 
-/**
- * Container parser for the timeline block. Accepts TimelineItemBlock children.
- */
-final class TimelineBlockContinueParser extends AbstractBlockContinueParser
+final class TimelineListContinueParser extends AbstractBlockContinueParser
 {
-    private TimelineBlock $block;
+    private TimelineList $block;
 
     public function __construct()
     {
-        $this->block = new TimelineBlock();
+        $this->block = new TimelineList();
     }
 
-    public function getBlock(): TimelineBlock
+    public function getBlock(): TimelineList
     {
         return $this->block;
     }
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        $rest = $cursor->getRemainder();
-
-        // closing fence ends the timeline
-        if (preg_match('/^:::\s*$/', $rest)) {
-            return BlockContinue::finished();
-        }
-
-        // otherwise allow children (TimelineItemStartParser will start item blocks)
         return BlockContinue::at($cursor);
     }
 
@@ -48,6 +39,6 @@ final class TimelineBlockContinueParser extends AbstractBlockContinueParser
 
     public function canContain(AbstractBlock $childBlock): bool
     {
-        return $childBlock instanceof \Zaimea\CommonMark\Timeline\Nodes\TimelineItemBlock;
+        return $childBlock instanceof TimelineTerm || $childBlock instanceof Timeline;
     }
 }
