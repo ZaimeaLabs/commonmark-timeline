@@ -8,7 +8,6 @@ use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 use Zaimea\CommonMark\Timeline\Parser\TimelineStartParser;
 use Zaimea\CommonMark\Timeline\Parser\TimelineItemStartParser;
-use Zaimea\CommonMark\Timeline\Parser\TimelineBlockContinueParser;
 use Zaimea\CommonMark\Timeline\Renderer\TimelineBlockRenderer;
 use Zaimea\CommonMark\Timeline\Renderer\TimelineItemRenderer;
 use Zaimea\CommonMark\Timeline\Nodes\TimelineBlock;

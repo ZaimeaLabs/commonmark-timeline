@@ -8,17 +8,17 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
-use Zaimea\CommonMark\Timeline\Nodes\TimelineItemBlock;
 use Zaimea\CommonMark\BladeRender\BladeRender;
+use Zaimea\CommonMark\Timeline\Nodes\TimelineItemBlock;
 
-final class TimelineItemRenderer implements NodeRendererInterface
+final class TimelineContentRenderer implements NodeRendererInterface
 {
     /**
      * @param TimelineItemBlock $node
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable|string
     {
         TimelineItemBlock::assertInstanceOf($node);
 
@@ -28,19 +28,17 @@ final class TimelineItemRenderer implements NodeRendererInterface
             $children[] = $c;
         }
 
-        $iconNode = null;
         if (!empty($children) && $children[0] instanceof BladeRender) {
-            $iconNode = $children[0];
             array_shift($children);
         }
 
-        $icon       = (new TimelineIconRenderer())->render($iconNode, $childRenderer);
-        $timeEl     = (new TimelineTimeRenderer())->render($node, $childRenderer);
-        $contentEl  = (new TimelineContentRenderer())->render($node, $childRenderer);
-        $ctaEl      = (new TimelineCtaRenderer())->render($node, $childRenderer);
+        if (empty($contentChildren)) {
+            return '';
+        }
 
-        $inner = $icon . $timeEl . $contentEl . $ctaEl;
+        $rendered = $childRenderer->renderNodes($contentChildren);
 
-        return new HtmlElement('li', ['class' => 'mb-10 ms-6'], $inner);
+        // Wrap content in a block - you can change to <h3> if you want title styling
+        return new HtmlElement('div', ['class' => 'mt-2'], $rendered);
     }
 }
