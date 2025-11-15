@@ -1,26 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zaimea\CommonMark\Timeline\Nodes;
 
 use League\CommonMark\Node\Block\AbstractBlock;
-use Zaimea\CommonMark\Timeline\Nodes\TimelineItemBlock;
 
-class TimelineBlock extends AbstractBlock
+/**
+ * Container for timeline items.
+ */
+final class TimelineBlock extends AbstractBlock
 {
-    /** @var TimelineItemBlock[] */
-    private array $items = [];
-
-    public function addItem(TimelineItemBlock $item): void
-    {
-        $this->items[] = $item;
-        $item->setParent($this);
-    }
-
-    /**
-     * @return TimelineItemBlock[]
-     */
-    public function getItems(): array
-    {
-        return $this->items;
-    }
+    // container node - children are TimelineItemBlock instances
 }
