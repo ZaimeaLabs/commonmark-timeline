@@ -19,12 +19,10 @@ final class TimelineListRenderer implements NodeRendererInterface
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function render(Node $node, ChildNodeRendererInterface $childRenderer): HtmlElement
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable
     {
         TimelineList::assertInstanceOf($node);
 
-        $separator = $childRenderer->getBlockSeparator();
-
-        return new HtmlElement('dl', [], $separator . $childRenderer->renderNodes($node->children()) . $separator);
+        return new HtmlElement('li', [], $childRenderer->renderNodes($node->children()));
     }
 }

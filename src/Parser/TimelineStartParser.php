@@ -20,17 +20,17 @@ final class TimelineStartParser implements BlockStartParserInterface
         }
 
         $cursor->advanceToNextNonSpaceOrTab();
-        if ($cursor->match('/^:step[ \t]+/') === null) {
+        if ($cursor->match('/^:timeline[ \t]+/') === null) {
             return BlockStart::none();
         }
 
-        $terms = $parserState->getParagraphContent();
+        $items = $parserState->getParagraphContent();
 
         $activeBlock = $parserState->getActiveBlockParser()->getBlock();
 
-        if ($terms !== null && $terms !== '') {
-            // New timeline; tight; term(s) sitting in pending block that we will replace
-            return BlockStart::of(...[new TimelineListContinueParser()], ...self::splitTerms($terms), ...[new TimelineContinueParser(true, $cursor->getPosition())])
+        if ($items !== null && $items !== '') {
+            // New timeline; tight; item(s) sitting in pending block that we will replace
+            return BlockStart::of(...[new TimelineOrderedListsContinueParser()], ...self::splitItems($items), ...[new TimelineContinueParser(true, $cursor->getPosition())])
                 ->at($cursor)
                 ->replaceActiveBlockParser();
         }
@@ -41,22 +41,22 @@ final class TimelineStartParser implements BlockStartParserInterface
         }
 
         if ($activeBlock->lastChild() instanceof Paragraph) {
-            // New timeline; loose; term(s) sitting in previous closed paragraph block
+            // New timeline; loose; item(s) sitting in previous closed paragraph block
             return BlockStart::of(new TimelineContinueParser(false, $cursor->getPosition()))->at($cursor);
         }
 
-        // No preceding terms
+        // No preceding items
         return BlockStart::none();
     }
 
     /**
-     * @return array<int, TimelineTermContinueParser>
+     * @return array<int, TimelineListContinueParser>
      */
-    private static function splitTerms(string $terms): array
+    private static function splitItems(string $items): array
     {
         $ret = [];
-        foreach (\explode("\n", $terms) as $term) {
-            $ret[] = new TimelineTermContinueParser($term);
+        foreach (\explode("\n", $items) as $item) {
+            $ret[] = new TimelineListContinueParser($item);
         }
 
         return $ret;

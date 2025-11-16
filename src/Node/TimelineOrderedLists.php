@@ -6,6 +6,6 @@ namespace Zaimea\CommonMark\Timeline\Node;
 
 use League\CommonMark\Node\Block\AbstractBlock;
 
-final class TimelineTerm extends AbstractBlock
+final class TimelineOrderedLists extends AbstractBlock
 {
 }
