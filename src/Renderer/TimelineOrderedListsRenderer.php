@@ -25,6 +25,6 @@ final class TimelineOrderedListsRenderer implements NodeRendererInterface
 
         $separator = $childRenderer->getBlockSeparator();
 
-        return new HtmlElement('ol', [], $separator . $childRenderer->renderNodes($node->children()) . $separator);
+        return new HtmlElement('ol', ['class' => 'relative border-s border-gray-200 dark:border-gray-700 ms-6'], $separator . $childRenderer->renderNodes($node->children()) . $separator);
     }
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zaimea\CommonMark\Timeline\Renderer;
 
-use Zaimea\CommonMark\Timeline\Node\Timeline;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
+use Zaimea\CommonMark\Timeline\Node\Timeline;
 
 final class TimelineRenderer implements NodeRendererInterface
 {
@@ -23,6 +23,6 @@ final class TimelineRenderer implements NodeRendererInterface
     {
         Timeline::assertInstanceOf($node);
 
-        return new HtmlElement('p', [], $childRenderer->renderNodes($node->children()));
+        return new HtmlElement('p', ['class' => 'mb-4 text-base font-normal text-body'], $childRenderer->renderNodes($node->children()));
     }
 }

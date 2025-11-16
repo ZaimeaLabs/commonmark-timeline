@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Zaimea\CommonMark\Timeline\Event;
 
 use League\CommonMark\Event\DocumentParsedEvent;
-use Zaimea\CommonMark\Timeline\Node\Timeline;
-use Zaimea\CommonMark\Timeline\Node\TimelineOrderedLists;
-use Zaimea\CommonMark\Timeline\Node\TimelineList;
 use League\CommonMark\Node\Block\Paragraph;
 use League\CommonMark\Node\Inline\Newline;
 use League\CommonMark\Node\NodeIterator;
+use Zaimea\CommonMark\Timeline\Node\Timeline;
+use Zaimea\CommonMark\Timeline\Node\TimelineList;
+use Zaimea\CommonMark\Timeline\Node\TimelineOrderedLists;
 
 final class LooseTimelineHandler
 {

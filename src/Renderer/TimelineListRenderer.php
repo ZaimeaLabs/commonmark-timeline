@@ -23,6 +23,6 @@ final class TimelineListRenderer implements NodeRendererInterface
     {
         TimelineList::assertInstanceOf($node);
 
-        return new HtmlElement('li', [], $childRenderer->renderNodes($node->children()));
+        return new HtmlElement('li', ['class' => 'mb-10 ms-4'], $childRenderer->renderNodes($node->children()));
     }
 }
