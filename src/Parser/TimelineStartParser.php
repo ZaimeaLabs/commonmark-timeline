@@ -20,6 +20,7 @@ final class TimelineStartParser implements BlockStartParserInterface
         }
 
         $cursor->advanceToNextNonSpaceOrTab();
+
         if ($cursor->match('/^:timeline[ \t]+/') === null) {
             return BlockStart::none();
         }

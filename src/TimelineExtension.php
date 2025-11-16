@@ -9,6 +9,7 @@ use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\ExtensionInterface;
 use Zaimea\CommonMark\Timeline\Event\ConsecutiveTimelineOrderedListsMerger;
 use Zaimea\CommonMark\Timeline\Event\LooseTimelineHandler;
+use Zaimea\CommonMark\Timeline\Event\TimelineAttributesListener;
 use Zaimea\CommonMark\Timeline\Node\Timeline;
 use Zaimea\CommonMark\Timeline\Node\TimelineContent;
 use Zaimea\CommonMark\Timeline\Node\TimelineCta;
@@ -33,6 +34,7 @@ final class TimelineExtension implements ExtensionInterface
 
         $environment->addEventListener(DocumentParsedEvent::class, new LooseTimelineHandler(), 1001);
         $environment->addEventListener(DocumentParsedEvent::class, new ConsecutiveTimelineOrderedListsMerger(), 1000);
+        $environment->addEventListener(DocumentParsedEvent::class, new TimelineAttributesListener(), 1002);
 
         $environment->addRenderer(TimelineOrderedLists::class, new TimelineOrderedListsRenderer());
         $environment->addRenderer(TimelineList::class, new TimelineListRenderer());
