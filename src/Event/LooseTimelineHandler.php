@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Zaimea\CommonMark\Timeline\Event;
@@ -38,18 +39,18 @@ final class LooseTimelineHandler
             }
 
             // Convert the paragraph into one or more list items
-            $term = new TimelineList();
-            $paragraph->replaceWith($term);
+            $list = new TimelineList();
+            $paragraph->replaceWith($list);
 
             foreach ($paragraph->children() as $child) {
                 if ($child instanceof Newline) {
-                    $newTerm = new TimelineList();
-                    $term->insertAfter($newTerm);
-                    $term = $newTerm;
+                    $newList = new TimelineList();
+                    $list->insertAfter($newList);
+                    $list = $newList;
                     continue;
                 }
 
-                $term->appendChild($child);
+                $list->appendChild($child);
             }
         }
     }
